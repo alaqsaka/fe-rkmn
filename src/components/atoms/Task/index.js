@@ -3,12 +3,16 @@ import {
   Divider,
   Flex,
   IconButton,
+  Menu,
+  MenuButton,
   Progress,
   Spacer,
   Text,
+  Button,
 } from '@chakra-ui/react';
 import React from 'react';
 import { BsThreeDots } from 'react-icons/bs';
+import SurveyDialogMenu from '../SurveyDialogMenu';
 
 const Task = () => {
   return (
@@ -61,12 +65,22 @@ const Task = () => {
         </Flex>
         <Spacer />
         <Box>
-          <IconButton
-            bg="none"
-            colorScheme="rgba(237, 237, 237, 1);"
-            icon={<BsThreeDots color="rgba(117, 117, 117, 1) " />}
-            fontSize="24px"
-          />
+          <Menu>
+            {({ isOpen }) => (
+              <>
+                <MenuButton>
+                  <IconButton
+                    isActive={isOpen}
+                    bg="none"
+                    colorScheme="rgba(237, 237, 237, 1);"
+                    icon={<BsThreeDots color="rgba(117, 117, 117, 1) " />}
+                    fontSize="24px"
+                  />
+                </MenuButton>
+                <SurveyDialogMenu />
+              </>
+            )}
+          </Menu>
         </Box>
       </Flex>
     </Box>
