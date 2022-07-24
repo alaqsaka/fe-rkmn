@@ -5,15 +5,12 @@ import {
   ChakraProvider,
   Container,
   extendTheme,
-  Flex,
-  Grid,
-  GridItem,
   SimpleGrid,
 } from '@chakra-ui/react';
 import Header from './components/atoms/Header';
 import GroupTaskCard from './components/molecules/GroupTaskCard';
-
-import axios from 'axios';
+import { getTodos } from './actions/todos';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
   const theme = extendTheme({
@@ -22,23 +19,15 @@ function App() {
       body: `'Nunito Sans', sans-serif`,
     },
   });
-  const [todos, setTodos] = useState([]);
+  let [todos, setTodos] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get('https://todos-project-api.herokuapp.com/todos', {
-        headers: {
-          Authorization: `bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyODEsImV4cCI6MTY1OTAwODY3N30.Xab7Hbm6PIf4ampV-gmFPiBs1RLtP_HIdGMiYfrBv0c`,
-        },
-      })
-      .then(response => {
-        // console.log('response ', response);
-        setTodos(response.data);
-      });
-  }, []);
+    dispatch(getTodos());
+  }, [dispatch]);
 
-  // Fetch todos group
-  console.log(todos);
+  todos = useSelector(state => state.todos);
+
   return (
     <ChakraProvider theme={theme}>
       <Header />
@@ -47,7 +36,7 @@ function App() {
         <SimpleGrid minChildWidth="326px" spacing="16px">
           {todos.map(todo => (
             // Kirim todo_id
-            <GroupTaskCard todo={todo} />
+            <GroupTaskCard key={todo} todo={todo} />
           ))}
         </SimpleGrid>
         {/* <Flex gap="16px">

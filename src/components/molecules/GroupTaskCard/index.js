@@ -74,7 +74,7 @@ const GroupTaskCard = ({ todo }) => {
       {/* Tasks */}
       <div>
         {items.map(item => (
-          <Task task={item} />
+          <Task task={item} key={item.id} />
         ))}
       </div>
 
