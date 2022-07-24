@@ -12,8 +12,7 @@ import {
 } from '@chakra-ui/react';
 import Header from './components/atoms/Header';
 import GroupTaskCard from './components/molecules/GroupTaskCard';
-import todos from './data/todos.json';
-import items from './data/items.json';
+
 import axios from 'axios';
 
 function App() {
@@ -48,7 +47,7 @@ function App() {
         <SimpleGrid minChildWidth="326px" spacing="16px">
           {todos.map(todo => (
             // Kirim todo_id
-            <GroupTaskCard items={items} todo={todo} />
+            <GroupTaskCard todo={todo} />
           ))}
         </SimpleGrid>
         {/* <Flex gap="16px">
