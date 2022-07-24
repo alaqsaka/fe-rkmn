@@ -14,7 +14,8 @@ import React from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import SurveyDialogMenu from '../SurveyDialogMenu';
 
-const Task = () => {
+const Task = ({ task }) => {
+  // console.log('item ', task);
   return (
     <Box
       bg="rgba(250, 250, 250, 1)"
@@ -23,10 +24,11 @@ const Task = () => {
         padding: '16px',
         borderRadius: '4px',
         border: '1px solid rgba(224, 224, 224, 1)',
+        marginBottom: '12px',
       }}
     >
       <Text color="rgba(64, 64, 64, 1)" style={{ fontWeight: '700' }}>
-        Re-designed the zero-g doggie bags. No more spills!
+        {task?.name}
       </Text>
 
       <Divider
@@ -44,7 +46,9 @@ const Task = () => {
           <Box w="188px">
             {/* Warna dari progres kalo belum selesai biru, tapi kalo udah selesai (100%) jadi warna ijo */}
             <Progress
-              value={30}
+              value={
+                task.progress_percentage === null ? 0 : task.progress_percentage
+              }
               style={{ borderRadius: '9999px', height: '16px' }}
             />
           </Box>
@@ -59,7 +63,7 @@ const Task = () => {
                 fontWeight: '400',
               }}
             >
-              30%
+              {task.progress_percentage === null ? 0 : task.progress_percentage}
             </p>
           </Box>
         </Flex>

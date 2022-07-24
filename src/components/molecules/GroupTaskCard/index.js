@@ -1,14 +1,33 @@
 import { Badge, Box, Button, useDisclosure } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Task from '../../atoms/Task';
 import { BsPlusCircle } from 'react-icons/bs';
 import CreateTaskModal from '../../atoms/CreateTaskModal';
+import axios from 'axios';
 
-const GroupTaskCard = () => {
+const GroupTaskCard = ({ todo }) => {
+  // console.log(items);
+  const [items, setItems] = useState([]);
+  console.log(todo.id);
   const { isOpen, onOpen, onClose } = useDisclosure();
   // Style
   // Accepting props for background color
   // Accepting props for border color
+
+  useEffect(() => {
+    axios
+      .get(`https://todos-project-api.herokuapp.com/todos/${todo.id}/items`, {
+        headers: {
+          Authorization: `bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyODEsImV4cCI6MTY1OTAwODY3N30.Xab7Hbm6PIf4ampV-gmFPiBs1RLtP_HIdGMiYfrBv0c`,
+        },
+      })
+      .then(response => {
+        console.log('response ', response);
+        // setTodos(response.data);
+        setItems(response.data);
+      });
+  }, []);
+
   return (
     <Box
       borderWidth="1px"
@@ -36,7 +55,7 @@ const GroupTaskCard = () => {
             color: 'rgba(1, 149, 159, 1)',
           }}
         >
-          Group Task 1
+          {todo?.title}
         </p>
       </Badge>
 
@@ -49,12 +68,14 @@ const GroupTaskCard = () => {
           marginBottom: '8px',
         }}
       >
-        January - March
+        {todo.description}
       </p>
 
       {/* Tasks */}
       <div>
-        <Task />
+        {items.map(item => (
+          <Task task={item} />
+        ))}
       </div>
 
       {/* New Task Button */}
