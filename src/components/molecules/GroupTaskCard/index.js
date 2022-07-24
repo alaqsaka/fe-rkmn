@@ -13,6 +13,7 @@ const GroupTaskCard = () => {
     <Box
       borderWidth="1px"
       width="100%"
+      maxW="326px"
       style={{
         borderColor: 'rgba(1, 149, 159, 1)',
         borderRadius: '4px',

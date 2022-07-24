@@ -63,7 +63,7 @@ const Task = () => {
             </p>
           </Box>
         </Flex>
-        <Spacer />
+
         <Box>
           <Menu>
             {({ isOpen }) => (
